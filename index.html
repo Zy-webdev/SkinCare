@@ -3,628 +3,463 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GlowSkin ✨ | Premium Aesthetics</title>
+    <title>GlowSkin ✨ | Premium Aesthetics & Dermatology</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
         --primary: #ff3d7f;
-        --soft-pink: #ffebf2;
-        --dark: #2d3436;
-        --light-bg: #fdf2f7;
-        --white: #ffffff;
+        --secondary: #ff8e53;
+        --dark: #121212;
+        --light: #fffcfd;
+        --gold: #d4af37;
+        --glass: rgba(255, 255, 255, 0.95);
       }
+
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: 'Poppins', sans-serif;
+        scroll-behavior: smooth;
       }
       body {
-        background: var(--light-bg);
+        background: var(--light);
         color: var(--dark);
-        line-height: 1.6;
+        overflow-x: hidden;
       }
-      .btn {
-        padding: 12px 25px;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        background: linear-gradient(135deg, #ff3d7f 0%, #ff8e53 100%);
-        color: #fff;
-        font-weight: 600;
-        transition: 0.3s;
-        width: 100%;
-      }
-      .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(255, 61, 127, 0.2);
-      }
-      .btn:disabled {
-        background: #ccc;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-      }
-      #authPage {
-        min-height: 100vh;
+
+      /* --- Header --- */
+      header {
+        padding: 15px 8%;
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        background: var(--glass);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      }
+      .logo {
+        font-family: 'Playfair Display';
+        font-size: 1.8rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      /* --- Hero --- */
+      .hero {
+        height: 80vh;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url('https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=1920&q=80')
+            center/cover;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        background: var(--light-bg);
-      }
-      .login-card {
-        background: var(--white);
-        padding: 40px;
-        border-radius: 30px;
-        width: 100%;
-        max-width: 400px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
         text-align: center;
+        color: white;
+        margin-top: 60px;
       }
-      .role-tabs {
+
+      /* --- Sections --- */
+      .doctor-section {
+        padding: 80px 10%;
         display: flex;
-        background: #f5f5f5;
-        padding: 5px;
-        border-radius: 15px;
-        margin-bottom: 20px;
+        align-items: center;
+        gap: 50px;
+        background: white;
       }
-      .role-tab {
-        flex: 1;
-        padding: 10px;
-        border-radius: 12px;
-        cursor: pointer;
-        font-size: 0.8rem;
+      .doc-img {
+        width: 400px;
+        border-radius: 20px;
+        box-shadow: 15px 15px 0 var(--primary);
+      }
+      .services {
+        padding: 80px 10%;
+        text-align: center;
+        background: #fffcfd;
+      }
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
+      }
+      .card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid #eee;
         transition: 0.3s;
       }
-      .role-tab.active {
-        background: var(--white);
-        color: var(--primary);
-        font-weight: 700;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+      /* --- Booking Slots --- */
+      #bookingModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
       }
+      .modal-content {
+        background: white;
+        padding: 40px;
+        border-radius: 25px;
+        width: 90%;
+        max-width: 600px;
+      }
+      .date-grid,
+      .time-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+        margin: 15px 0;
+      }
+      .slot-btn {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background: white;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 0.8rem;
+      }
+      .slot-btn:hover,
+      .slot-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+      .slot-btn.disabled {
+        background: #eee;
+        color: #aaa;
+        cursor: not-allowed;
+        border: none;
+      }
+
+      /* --- Admin Dashboard Layout --- */
+      #adminPanel {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #f4f6f9;
+        z-index: 9000;
+      }
+      .admin-layout {
+        display: flex;
+        height: 100vh;
+      }
+      .sidebar {
+        width: 260px;
+        background: #1a1a1a;
+        color: white;
+        padding: 25px;
+      }
+      .nav-item {
+        padding: 12px;
+        cursor: pointer;
+        margin-bottom: 5px;
+        border-radius: 8px;
+      }
+      .nav-item:hover,
+      .active-tab {
+        background: var(--primary);
+      }
+      .main-content {
+        flex: 1;
+        padding: 40px;
+        overflow-y: auto;
+      }
+      .content-section {
+        display: none;
+      }
+      .content-section.active {
+        display: block;
+      }
+
+      /* --- Login Card --- */
+      #adminAuth {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+      }
+      .login-card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        width: 350px;
+        text-align: center;
+      }
+
       input,
       select {
         width: 100%;
         padding: 12px;
-        margin: 8px 0;
-        border-radius: 10px;
-        border: 1px solid #eee;
-        outline: none;
-        background: #fafafa;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 8px;
       }
-      header {
-        padding: 15px 8%;
-        background: var(--white);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.02);
-      }
-      .logo {
-        font-size: 1.5rem;
-        font-weight: 800;
-        color: var(--primary);
-        letter-spacing: -1px;
-      }
-      .section-header {
-        text-align: center;
-        padding: 50px 8% 20px;
-      }
-      .section-header h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-      .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 25px;
-        padding: 20px 8% 50px;
-      }
-      .svc-card {
-        background: var(--white);
-        border-radius: 25px;
-        overflow: hidden;
-        transition: 0.4s;
-        border: 1px solid rgba(255, 61, 127, 0.05);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-      }
-      .svc-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(255, 61, 127, 0.1);
-      }
-      .svc-img {
-        height: 200px;
-        background-size: cover;
-        background-position: center;
-      }
-      .svc-info {
-        padding: 25px;
-      }
-      .svc-price {
-        font-weight: 700;
-        color: var(--primary);
-        font-size: 1.1rem;
-      }
-      .booking-area {
-        background: var(--white);
-        padding: 50px 8%;
-        border-radius: 60px 60px 0 0;
-      }
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-      }
-      .cal-box {
-        background: var(--light-bg);
-        padding: 30px;
-        border-radius: 30px;
-      }
-      .cal-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 8px;
-        margin-top: 20px;
+      footer {
+        padding: 40px;
+        background: #000;
+        color: white;
         text-align: center;
       }
-      .cal-date {
-        padding: 12px;
-        background: var(--white);
-        border-radius: 12px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: 0.3s;
-      }
-      .cal-date.selected {
+      .btn {
+        padding: 12px 30px;
+        border-radius: 50px;
+        border: none;
         background: var(--primary);
         color: white;
-      }
-      .slot-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-top: 15px;
-      }
-      .slot {
-        padding: 12px;
-        border: 1px solid #eee;
-        border-radius: 12px;
-        text-align: center;
         cursor: pointer;
-        font-size: 0.85rem;
-        background: white;
-      }
-      .slot.selected {
-        background: var(--primary);
-        color: white;
-      }
-      .slot.occupied {
-        background: #f5f5f5;
-        color: #ccc;
-        cursor: not-allowed;
-      }
-      .admin-container {
-        padding: 40px 8%;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        background: white;
-        border-radius: 20px;
-        overflow: hidden;
-      }
-      th,
-      td {
-        padding: 20px;
-        text-align: left;
-        border-bottom: 1px solid #f5f5f5;
-      }
-      .badge {
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 11px;
-        font-weight: 700;
-      }
-      .pending {
-        background: #fff8e1;
-        color: #ffa000;
-      }
-      .approved {
-        background: #e8f5e9;
-        color: #2e7d32;
-      }
-      @media (max-width: 900px) {
-        .grid-2 {
-          grid-template-columns: 1fr;
-        }
+        font-weight: 600;
       }
     </style>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
-    <div id="authPage">
-      <div class="login-card">
-        <h1 style="color: var(--primary); margin-bottom: 5px">GlowSkin ✨</h1>
-        <p style="font-size: 0.8rem; color: #888; margin-bottom: 25px">
-          Premium Dermatology Clinic
+    <div id="mainSite">
+      <header>
+        <a href="#" class="logo">GlowSkin.</a>
+        <nav>
+          <a
+            href="#doctor"
+            style="text-decoration: none; color: black; margin-right: 20px"
+            >The Expert</a
+          >
+          <button class="btn" onclick="openBooking()">Book Appointment</button>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <h1 style="font-size: 4rem; font-family: 'Playfair Display'">
+          Your Journey to Radiance
+        </h1>
+        <p>Premium Aesthetic care for your skin's health and beauty.</p>
+        <button class="btn" style="margin-top: 20px" onclick="openBooking()">
+          Check Available Slots
+        </button>
+      </section>
+
+      <section class="doctor-section" id="doctor">
+        <img
+          src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=800&q=80"
+          class="doc-img"
+        />
+        <div>
+          <h2>Meet Dr. Elena Santos, MD</h2>
+          <p style="color: var(--primary); font-weight: 600">
+            Board Certified Dermatologist
+          </p>
+          <p style="margin-top: 15px; color: #555">
+            Expert care in clinical and cosmetic dermatology with over 12 years
+            of experience.
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        <p>
+          &copy;
+          <span
+            class="secret-trigger"
+            onclick="openLogin()"
+            style="cursor: pointer"
+            >2026</span
+          >
+          GlowSkin Premium Aesthetics.
         </p>
-        <div class="role-tabs">
-          <div class="role-tab active" id="t1" onclick="setRole('client')">
-            Patient
-          </div>
-          <div class="role-tab" id="t2" onclick="setRole('admin')">Staff</div>
-        </div>
-        <input type="text" id="username" placeholder="Username" />
-        <input type="password" id="password" placeholder="Password" />
-        <div id="signupFields" style="display: none">
-          <input type="text" id="fullName" placeholder="Full Name" />
-        </div>
+      </footer>
+    </div>
+
+    <!-- LOGIN MODAL (Ito yung card na dapat nawawala) -->
+    <div id="adminAuth">
+      <div class="login-card">
+        <h3 style="margin-bottom: 10px">Staff Access</h3>
+        <p style="font-size: 0.8rem; color: gray; margin-bottom: 20px">
+          Enter credentials to manage clinic
+        </p>
+        <input type="text" id="user" placeholder="Username" />
+        <input type="password" id="pass" placeholder="Password" />
         <button
           class="btn"
-          id="authBtn"
-          style="margin-top: 15px"
-          onclick="handleAuth()"
+          style="width: 100%; margin-top: 10px"
+          onclick="doLogin()"
         >
-          Access Dashboard
+          Login
         </button>
-        <p
-          id="toggleMsg"
-          style="margin-top: 20px; font-size: 0.85rem; cursor: pointer"
-          onclick="toggleMode()"
+        <button
+          onclick="document.getElementById('adminAuth').style.display = 'none'"
+          style="
+            background: none;
+            border: none;
+            color: gray;
+            margin-top: 15px;
+            cursor: pointer;
+          "
         >
-          New Patient?
-          <span style="color: var(--primary); font-weight: 600"
-            >Register Now</span
-          >
-        </p>
+          Cancel
+        </button>
       </div>
     </div>
 
-    <div id="mainApp" style="display: none">
-      <header>
-        <div class="logo">GlowSkin.</div>
-        <div style="display: flex; align-items: center; gap: 20px">
-          <span style="font-size: 0.9rem"
-            >Welcome, <b id="userDisp" style="color: var(--primary)"></b
-          ></span>
-          <button
-            class="btn"
-            style="
-              padding: 8px 20px;
-              width: auto;
-              background: #2d3436;
-              font-size: 0.8rem;
-            "
-            onclick="logout()"
+    <!-- ADMIN DASHBOARD -->
+    <div id="adminPanel">
+      <div class="admin-layout">
+        <div class="sidebar">
+          <h2>Admin</h2>
+          <div class="nav-item active-tab" onclick="showTab('d')">
+            📊 Dashboard
+          </div>
+          <div class="nav-item" onclick="showTab('a')">📅 Bookings</div>
+          <div class="nav-item" onclick="showTab('s')">✨ Manage Slots</div>
+          <div
+            class="nav-item"
+            style="color: red; margin-top: 50px"
+            onclick="location.reload()"
           >
             Logout
-          </button>
-        </div>
-      </header>
-
-      <div id="clientUI" style="display: none">
-        <div class="section-header">
-          <h1>Our Expert Treatments</h1>
-          <p>Science-backed procedures for your best skin yet.</p>
-        </div>
-        <div class="services-grid">
-          <div class="svc-card">
-            <div
-              class="svc-img"
-              style="
-                background-image: url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=500');
-              "
-            ></div>
-            <div class="svc-info">
-              <h3>Signature Glow Facial</h3>
-              <p>Deep cleansing and hydration.</p>
-              <div class="svc-price">₱1,500.00</div>
-            </div>
-          </div>
-          <div class="svc-card">
-            <div
-              class="svc-img"
-              style="
-                background-image: url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=500');
-              "
-            ></div>
-            <div class="svc-info">
-              <h3>Diamond Peel</h3>
-              <p>Advanced exfoliation.</p>
-              <div class="svc-price">₱2,200.00</div>
-            </div>
-          </div>
-          <div class="svc-card">
-            <div
-              class="svc-img"
-              style="
-                background-image: url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=500');
-              "
-            ></div>
-            <div class="svc-info">
-              <h3>Acne Control</h3>
-              <p>Targeted therapy.</p>
-              <div class="svc-price">₱1,850.00</div>
-            </div>
-          </div>
-          <div class="svc-card">
-            <div
-              class="svc-img"
-              style="
-                background-image: url('https://images.unsplash.com/photo-1552693673-1bf958298935?q=80&w=500');
-              "
-            ></div>
-            <div class="svc-info">
-              <h3>IV Vitamin Drip</h3>
-              <p>Boost your glow.</p>
-              <div class="svc-price">₱3,500.00</div>
-            </div>
           </div>
         </div>
-        <div class="booking-area">
-          <div class="grid-2">
-            <div class="cal-box">
-              <div
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                "
-              >
-                <button
-                  onclick="changeM(-1)"
-                  style="border: none; cursor: pointer; background: none"
-                >
-                  ❮</button
-                ><b id="calMonth"></b
-                ><button
-                  onclick="changeM(1)"
-                  style="border: none; cursor: pointer; background: none"
-                >
-                  ❯
-                </button>
-              </div>
-              <div class="cal-grid" id="calGrid"></div>
-            </div>
-            <div
-              class="cal-box"
-              style="background: var(--white); border: 1px solid #eee"
-            >
-              <p
-                id="selDateTxt"
-                style="
-                  font-size: 0.9rem;
-                  color: var(--primary);
-                  font-weight: 700;
-                  margin-bottom: 20px;
-                "
-              >
-                Choose a date
-              </p>
-              <select id="svcSel">
-                <option>Signature Glow Facial</option>
-                <option>Diamond Peel</option>
-                <option>Acne Control</option>
-                <option>IV Vitamin Drip</option>
-              </select>
-              <div class="slot-grid" id="slotGrid"></div>
-              <button
-                class="btn"
-                id="bookBtn"
-                style="margin-top: 30px"
-                onclick="bookNow()"
-                disabled
-              >
-                Confirm Booking
-              </button>
-            </div>
+        <div class="main-content">
+          <div id="d" class="content-section active">
+            <h1>Dashboard</h1>
+            <p>Welcome back! Here is your clinic's performance today.</p>
+          </div>
+          <div id="a" class="content-section">
+            <h1>Appointments</h1>
+            <p>Manage patient requests and approvals here.</p>
+          </div>
+          <div id="s" class="content-section">
+            <h1>Manage Slots</h1>
+            <p>
+              Open or close booking hours for the buttons on the landing page.
+            </p>
           </div>
         </div>
       </div>
+    </div>
 
-      <div id="adminUI" style="display: none">
-        <div class="admin-container">
-          <h2>Master Schedule</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Patient</th>
-                <th>Treatment</th>
-                <th>Schedule</th>
-                <th>Status</th>
-                <th>Manage</th>
-              </tr>
-            </thead>
-            <tbody id="adminTableBody"></tbody>
-          </table>
+    <!-- BOOKING MODAL -->
+    <div id="bookingModal">
+      <div class="modal-content">
+        <h2>Select Your Slot</h2>
+        <div class="date-grid">
+          <button class="slot-btn" onclick="selectDate(this, 'May 18')">
+            May 18
+          </button>
+          <button class="slot-btn disabled">May 19 (Full)</button>
+          <button class="slot-btn" onclick="selectDate(this, 'May 20')">
+            May 20
+          </button>
         </div>
+        <div class="time-grid">
+          <button class="slot-btn" onclick="selectTime(this, '09:00 AM')">
+            09:00 AM
+          </button>
+          <button class="slot-btn" onclick="selectTime(this, '02:00 PM')">
+            02:00 PM
+          </button>
+        </div>
+        <input type="text" id="custName" placeholder="Full Name" />
+        <button class="btn" style="width: 100%" onclick="confirmBooking()">
+          Confirm
+        </button>
+        <button
+          onclick="closeBooking()"
+          style="
+            background: none;
+            border: none;
+            width: 100%;
+            margin-top: 10px;
+            cursor: pointer;
+          "
+        >
+          Close
+        </button>
       </div>
     </div>
 
     <script>
-      let role = 'client',
-        signup = false,
-        activeUser = null,
-        vDate = new Date(),
-        sDate = null,
-        sSlot = null;
-      let users = JSON.parse(localStorage.getItem('gs_users')) || [
-        { u: 'admin', p: 'admin123', role: 'admin', name: 'Dr. Santos' },
-      ];
-      let bookings = JSON.parse(localStorage.getItem('gs_bookings')) || [];
+      // ADMIN LOGIC
+      function openLogin() {
+        document.getElementById('adminAuth').style.display = 'flex';
+      }
 
-      function setRole(r) {
-        role = r;
-        signup = false;
+      function doLogin() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
+
+        if (u === 'admin' && p === 'admin123') {
+          // 1. Itago ang login card modal
+          document.getElementById('adminAuth').style.display = 'none';
+
+          // 2. Itago ang buong Main Website
+          document.getElementById('mainSite').style.display = 'none';
+
+          // 3. Ipakita ang Admin Dashboard
+          document.getElementById('adminPanel').style.display = 'block';
+        } else {
+          alert('Wrong credentials! Try admin / admin123');
+        }
+      }
+
+      function showTab(id) {
         document
-          .getElementById('t1')
-          .classList.toggle('active', r === 'client');
-        document.getElementById('t2').classList.toggle('active', r === 'admin');
-        document.getElementById('signupFields').style.display = 'none';
-        document.getElementById('toggleMsg').style.display =
-          r === 'admin' ? 'none' : 'block';
-        document.getElementById('toggleMsg').innerHTML =
-          'New Patient? <span style="color: var(--primary); font-weight: 600;">Register Now</span>';
-        document.getElementById('authBtn').innerText = 'Access Dashboard';
+          .querySelectorAll('.content-section')
+          .forEach((s) => s.classList.remove('active'));
+        document
+          .querySelectorAll('.nav-item')
+          .forEach((n) => n.classList.remove('active-tab'));
+        document.getElementById(id).classList.add('active');
+        event.currentTarget.classList.add('active-tab');
       }
 
-      function toggleMode() {
-        signup = !signup;
-        document.getElementById('signupFields').style.display = signup
-          ? 'block'
-          : 'none';
-        document.getElementById('authBtn').innerText = signup
-          ? 'Create Account'
-          : 'Access Dashboard';
-        document.getElementById('toggleMsg').innerHTML = signup
-          ? 'Already have an account? <span style="color: var(--primary); font-weight: 600;">Login here</span>'
-          : 'New Patient? <span style="color: var(--primary); font-weight: 600;">Register Now</span>';
+      // BOOKING LOGIC
+      let d = '',
+        t = '';
+      function openBooking() {
+        document.getElementById('bookingModal').style.display = 'flex';
       }
-
-      function handleAuth() {
-        const u = document.getElementById('username').value,
-          p = document.getElementById('password').value;
-        if (!u || !p) return alert('Fill fields!');
-        if (u === 'admin' && p === 'admin123' && role === 'admin')
-          return login({ u: 'admin', name: 'Dr. Santos', role: 'admin' });
-
-        if (signup) {
-          if (users.find((x) => x.u === u)) return alert('User exists!');
-          let nUser = {
-            u,
-            p,
-            role: 'client',
-            name: document.getElementById('fullName').value || u,
-          };
-          users.push(nUser);
-          localStorage.setItem('gs_users', JSON.stringify(users));
-          login(nUser);
+      function closeBooking() {
+        document.getElementById('bookingModal').style.display = 'none';
+      }
+      function selectDate(btn, val) {
+        document
+          .querySelectorAll('.date-grid .slot-btn')
+          .forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        d = val;
+      }
+      function selectTime(btn, val) {
+        document
+          .querySelectorAll('.time-grid .slot-btn')
+          .forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        t = val;
+      }
+      function confirmBooking() {
+        const n = document.getElementById('custName').value;
+        if (n && d && t) {
+          alert(`Confirmed for ${n} on ${d} at ${t}`);
+          closeBooking();
         } else {
-          let user = users.find(
-            (x) => x.u === u && x.p === p && x.role === role,
-          );
-          if (user) login(user);
-          else alert('Invalid Credentials!');
+          alert('Fill all fields');
         }
-      }
-
-      function login(user) {
-        activeUser = user;
-        document.getElementById('authPage').style.display = 'none';
-        document.getElementById('mainApp').style.display = 'block';
-        document.getElementById('userDisp').innerText = user.name;
-        if (user.role === 'admin') {
-          document.getElementById('adminUI').style.display = 'block';
-          renderAdmin();
-        } else {
-          document.getElementById('clientUI').style.display = 'block';
-          renderCal();
-        }
-      }
-
-      function renderCal() {
-        const grid = document.getElementById('calGrid');
-        grid.innerHTML = '';
-        document.getElementById('calMonth').innerText = vDate.toLocaleString(
-          'default',
-          { month: 'long', year: 'numeric' },
-        );
-        ['S', 'M', 'T', 'W', 'T', 'F', 'S'].forEach(
-          (d) =>
-            (grid.innerHTML += `<div style="font-size:10px; font-weight:800; color:#bbb;">${d}</div>`),
-        );
-        const first = new Date(
-          vDate.getFullYear(),
-          vDate.getMonth(),
-          1,
-        ).getDay();
-        const days = new Date(
-          vDate.getFullYear(),
-          vDate.getMonth() + 1,
-          0,
-        ).getDate();
-        for (let i = 0; i < first; i++) grid.innerHTML += '<div></div>';
-        for (let d = 1; d <= days; d++) {
-          const ds = `${vDate.getFullYear()}-${vDate.getMonth() + 1}-${d}`;
-          const div = document.createElement('div');
-          div.className = `cal-date ${sDate === ds ? 'selected' : ''}`;
-          div.innerText = d;
-          div.onclick = () => {
-            sDate = ds;
-            sSlot = null;
-            renderCal();
-            renderSlots(ds);
-            document.getElementById('selDateTxt').innerText = 'Selected: ' + ds;
-          };
-          grid.appendChild(div);
-        }
-      }
-
-      function renderSlots(ds) {
-        const grid = document.getElementById('slotGrid');
-        grid.innerHTML = '';
-        const times = ['09:00 AM', '11:00 AM', '02:00 PM', '04:00 PM'];
-        times.forEach((t) => {
-          const occ = bookings.some(
-            (b) => b.date === ds && b.time === t && b.status === 'Approved',
-          );
-          const div = document.createElement('div');
-          div.className = `slot ${occ ? 'occupied' : ''} ${sSlot === t ? 'selected' : ''}`;
-          div.innerText = occ ? 'Fully Booked' : t;
-          if (!occ)
-            div.onclick = () => {
-              sSlot = t;
-              renderSlots(ds);
-              document.getElementById('bookBtn').disabled = false;
-            };
-          grid.appendChild(div);
-        });
-      }
-
-      function bookNow() {
-        bookings.push({
-          user: activeUser.name,
-          svc: document.getElementById('svcSel').value,
-          date: sDate,
-          time: sSlot,
-          status: 'Pending',
-        });
-        localStorage.setItem('gs_bookings', JSON.stringify(bookings));
-        alert('✨ Booking sent! Wait for approval.');
-        sSlot = null;
-        renderSlots(sDate);
-        document.getElementById('bookBtn').disabled = true;
-      }
-
-      function renderAdmin() {
-        const body = document.getElementById('adminTableBody');
-        body.innerHTML =
-          bookings
-            .map(
-              (b, i) =>
-                `<tr><td><b>${b.user}</b></td><td>${b.svc}</td><td>${b.date}<br>${b.time}</td><td><span class="badge ${b.status.toLowerCase()}">${b.status}</span></td><td>${b.status === 'Pending' ? `<button onclick="action(${i}, 'Approved')">✅</button>` : ''}<button onclick="action(${i}, 'Deleted')">🗑️</button></td></tr>`,
-            )
-            .join('') || '<tr><td colspan="5">No records.</td></tr>';
-      }
-
-      function action(i, s) {
-        if (s === 'Deleted') bookings.splice(i, 1);
-        else bookings[i].status = s;
-        localStorage.setItem('gs_bookings', JSON.stringify(bookings));
-        renderAdmin();
-      }
-      function logout() {
-        if (confirm('Logout?')) location.reload();
-      }
-      function changeM(s) {
-        vDate.setMonth(vDate.getMonth() + s);
-        renderCal();
       }
     </script>
   </body>
